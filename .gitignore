@@ -1,0 +1,20 @@
+# Build folders
+bin/
+obj/
+.vs/
+
+# User-specific files
+*.user
+*.suo
+
+# Logs
+*.log
+
+# Sensitive config
+appsettings.Development.json
+*.db
+*.sqlite
+
+# Temporary files
+*.tmp
+*.cache
