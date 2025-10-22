@@ -1,0 +1,39 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v9.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v9.0": {
+      "BasicCMR.Application/1.0.0": {
+        "dependencies": {
+          "BasicCMR.Domain": "1.0.0"
+        },
+        "runtime": {
+          "BasicCMR.Application.dll": {}
+        }
+      },
+      "BasicCMR.Domain/1.0.0": {
+        "runtime": {
+          "BasicCMR.Domain.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "BasicCMR.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "BasicCMR.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
