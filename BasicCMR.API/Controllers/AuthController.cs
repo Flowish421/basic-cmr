@@ -1,4 +1,4 @@
-using BasicCMR.API.DTOs.Auth;
+using BasicCMR.Application.DTOs.Auth;
 using BasicCMR.Domain.Entities;
 using BasicCMR.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;

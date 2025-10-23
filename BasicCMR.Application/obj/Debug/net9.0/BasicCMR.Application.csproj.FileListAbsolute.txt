@@ -2,12 +2,15 @@ C:\Users\ahmed\Desktop\basic CMR\BasicCMR.Application\bin\Debug\net9.0\BasicCMR.
 C:\Users\ahmed\Desktop\basic CMR\BasicCMR.Application\bin\Debug\net9.0\BasicCMR.Application.dll
 C:\Users\ahmed\Desktop\basic CMR\BasicCMR.Application\bin\Debug\net9.0\BasicCMR.Application.pdb
 C:\Users\ahmed\Desktop\basic CMR\BasicCMR.Application\bin\Debug\net9.0\BasicCMR.Domain.dll
+C:\Users\ahmed\Desktop\basic CMR\BasicCMR.Application\bin\Debug\net9.0\BasicCMR.Infrastructure.dll
 C:\Users\ahmed\Desktop\basic CMR\BasicCMR.Application\bin\Debug\net9.0\BasicCMR.Domain.pdb
+C:\Users\ahmed\Desktop\basic CMR\BasicCMR.Application\bin\Debug\net9.0\BasicCMR.Infrastructure.pdb
 C:\Users\ahmed\Desktop\basic CMR\BasicCMR.Application\obj\Debug\net9.0\BasicCMR.Application.csproj.AssemblyReference.cache
 C:\Users\ahmed\Desktop\basic CMR\BasicCMR.Application\obj\Debug\net9.0\BasicCMR.Application.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\ahmed\Desktop\basic CMR\BasicCMR.Application\obj\Debug\net9.0\BasicCMR.Application.AssemblyInfoInputs.cache
 C:\Users\ahmed\Desktop\basic CMR\BasicCMR.Application\obj\Debug\net9.0\BasicCMR.Application.AssemblyInfo.cs
 C:\Users\ahmed\Desktop\basic CMR\BasicCMR.Application\obj\Debug\net9.0\BasicCMR.Application.csproj.CoreCompileInputs.cache
+C:\Users\ahmed\Desktop\basic CMR\BasicCMR.Application\obj\Debug\net9.0\BasicCMR.Application.sourcelink.json
 C:\Users\ahmed\Desktop\basic CMR\BasicCMR.Application\obj\Debug\net9.0\BasicCMR.3656640A.Up2Date
 C:\Users\ahmed\Desktop\basic CMR\BasicCMR.Application\obj\Debug\net9.0\BasicCMR.Application.dll
 C:\Users\ahmed\Desktop\basic CMR\BasicCMR.Application\obj\Debug\net9.0\refint\BasicCMR.Application.dll

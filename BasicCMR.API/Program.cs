@@ -4,23 +4,34 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 using BasicCMR.Infrastructure.Data;
+using BasicCMR.Application;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ================================
+
+// =====================
 // Lägg till DbContext
-// ================================
+// =====================
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// ================================
+//==============================
+builder.Services.AddMemoryCache();
+//============================
+
+// ======================
 // Lägg till Controllers
-// ================================
+// ======================
 builder.Services.AddControllers();
 
-// ================================
+//=====================
+// Application service
+//=====================
+builder.Services.AddApplication();
+
+// ================
 // CORS Policy
-// ================================
+// ================
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
@@ -31,9 +42,9 @@ builder.Services.AddCors(options =>
     });
 });
 
-// ================================
+// ========================
 // JWT Authentication Setup
-// ================================
+// ========================
 var jwtKey = builder.Configuration["Jwt:Key"];
 var jwtIssuer = builder.Configuration["Jwt:Issuer"];
 var jwtAudience = builder.Configuration["Jwt:Audience"];
@@ -53,9 +64,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-// ================================
+// ==================
 // Swagger med Auth
-// ================================
+// ==================
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
@@ -93,14 +104,14 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
-// ================================
+// ============
 //  Bygg appen
-// ================================
+// ============
 var app = builder.Build();
 
-// ================================
+// ====================
 //  Middleware pipeline
-// ================================
+// ====================
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

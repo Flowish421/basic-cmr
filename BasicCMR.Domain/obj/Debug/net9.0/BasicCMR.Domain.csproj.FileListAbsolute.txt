@@ -5,6 +5,7 @@ C:\Users\ahmed\Desktop\basic CMR\BasicCMR.Domain\obj\Debug\net9.0\BasicCMR.Domai
 C:\Users\ahmed\Desktop\basic CMR\BasicCMR.Domain\obj\Debug\net9.0\BasicCMR.Domain.AssemblyInfoInputs.cache
 C:\Users\ahmed\Desktop\basic CMR\BasicCMR.Domain\obj\Debug\net9.0\BasicCMR.Domain.AssemblyInfo.cs
 C:\Users\ahmed\Desktop\basic CMR\BasicCMR.Domain\obj\Debug\net9.0\BasicCMR.Domain.csproj.CoreCompileInputs.cache
+C:\Users\ahmed\Desktop\basic CMR\BasicCMR.Domain\obj\Debug\net9.0\BasicCMR.Domain.sourcelink.json
 C:\Users\ahmed\Desktop\basic CMR\BasicCMR.Domain\obj\Debug\net9.0\BasicCMR.Domain.dll
 C:\Users\ahmed\Desktop\basic CMR\BasicCMR.Domain\obj\Debug\net9.0\refint\BasicCMR.Domain.dll
 C:\Users\ahmed\Desktop\basic CMR\BasicCMR.Domain\obj\Debug\net9.0\BasicCMR.Domain.pdb

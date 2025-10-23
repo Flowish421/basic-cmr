@@ -1,4 +1,4 @@
-namespace BasicCMR.API.DTOs.JobApplications
+namespace BasicCMR.Application.DTOs.JobApplications
 {
     public class UpdateJobApplicationDto
     {

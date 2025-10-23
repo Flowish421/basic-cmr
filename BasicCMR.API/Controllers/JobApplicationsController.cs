@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BasicCMR.Infrastructure.Data;
 using BasicCMR.Domain.Entities;
-using BasicCMR.API.DTOs.JobApplications;
+using BasicCMR.Application.DTOs.JobApplications;
 using System.Security.Claims;
 
 

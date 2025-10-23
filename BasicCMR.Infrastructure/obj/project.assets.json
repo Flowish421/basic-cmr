@@ -1899,19 +1899,6 @@
           }
         }
       },
-      "BasicCMR.Application/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v9.0",
-        "dependencies": {
-          "BasicCMR.Domain": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/BasicCMR.Application.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/BasicCMR.Application.dll": {}
-        }
-      },
       "BasicCMR.Domain/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v9.0",
@@ -5283,11 +5270,6 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "BasicCMR.Application/1.0.0": {
-      "type": "project",
-      "path": "../BasicCMR.Application/BasicCMR.Application.csproj",
-      "msbuildProject": "../BasicCMR.Application/BasicCMR.Application.csproj"
-    },
     "BasicCMR.Domain/1.0.0": {
       "type": "project",
       "path": "../BasicCMR.Domain/BasicCMR.Domain.csproj",
@@ -5296,9 +5278,7 @@
   },
   "projectFileDependencyGroups": {
     "net9.0": [
-      "AutoMapper >= 12.0.1",
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 12.0.1",
-      "BasicCMR.Application >= 1.0.0",
       "BasicCMR.Domain >= 1.0.0",
       "FluentValidation >= 12.0.0",
       "FluentValidation.DependencyInjectionExtensions >= 12.0.0",
@@ -5346,9 +5326,6 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "projectReferences": {
-            "C:\\Users\\ahmed\\Desktop\\basic CMR\\BasicCMR.Application\\BasicCMR.Application.csproj": {
-              "projectPath": "C:\\Users\\ahmed\\Desktop\\basic CMR\\BasicCMR.Application\\BasicCMR.Application.csproj"
-            },
             "C:\\Users\\ahmed\\Desktop\\basic CMR\\BasicCMR.Domain\\BasicCMR.Domain.csproj": {
               "projectPath": "C:\\Users\\ahmed\\Desktop\\basic CMR\\BasicCMR.Domain\\BasicCMR.Domain.csproj"
             }
@@ -5371,10 +5348,6 @@
       "net9.0": {
         "targetAlias": "net9.0",
         "dependencies": {
-          "AutoMapper": {
-            "target": "Package",
-            "version": "[12.0.1, )"
-          },
           "AutoMapper.Extensions.Microsoft.DependencyInjection": {
             "target": "Package",
             "version": "[12.0.1, )"

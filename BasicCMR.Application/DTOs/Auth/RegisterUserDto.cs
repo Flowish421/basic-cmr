@@ -1,4 +1,4 @@
-namespace BasicCMR.API.DTOs.Auth
+namespace BasicCMR.Application.DTOs.Auth
 {
     public class RegisterUserDto
     {
