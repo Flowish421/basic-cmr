@@ -2,8 +2,8 @@ namespace BasicCMR.Application.DTOs.Dashboard
 {
     public class StatusDistributionDto
     {
-        public string Status { get; set; } = string.Empty;
-        public int Count { get; set; }
-        public double Percentage { get; set; }
+        public int Accepted { get; set; }
+        public int Pending { get; set; }
+        public int Rejected { get; set; }
     }
 }

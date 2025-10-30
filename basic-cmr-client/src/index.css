@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Du kan lägga till egna stilar här om du vill */
+body {
+  @apply bg-gray-50 text-gray-800;
+}

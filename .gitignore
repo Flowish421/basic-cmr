@@ -1,20 +1,20 @@
-# Build folders
+# --- .NET ---
 bin/
 obj/
-.vs/
-
-# User-specific files
 *.user
 *.suo
-
-# Logs
-*.log
-
-# Sensitive config
-appsettings.Development.json
-*.db
-*.sqlite
-
-# Temporary files
-*.tmp
 *.cache
+*.log
+*.vs/
+
+# --- React ---
+basic-cmr-client/node_modules/
+basic-cmr-client/dist/
+
+# --- Environment files ---
+*.env
+*.env.local
+
+# --- OS ---
+.DS_Store
+Thumbs.db

@@ -1,91 +1,114 @@
 using BasicCMR.Application.DTOs.Dashboard;
+using BasicCMR.Application.DTOs.JobApplications;
 using BasicCMR.Application.Interfaces;
 using BasicCMR.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Caching.Memory;
 
 namespace BasicCMR.Application.Services
 {
     public class DashboardService : IDashboardService
     {
         private readonly AppDbContext _context;
-        private readonly IMemoryCache _cache;
 
-        public DashboardService(AppDbContext context, IMemoryCache cache)
+        public DashboardService(AppDbContext context)
         {
             _context = context;
-            _cache = cache;
         }
 
+        // 🔹 Summering (antal ansökningar totalt)
         public async Task<DashboardSummaryDto> GetSummaryAsync(int userId)
         {
-            string cacheKey = $"dashboard_summary_{userId}";
-
-            if (_cache.TryGetValue(cacheKey, out DashboardSummaryDto cachedSummary))
-                return cachedSummary;
-
-            var query = _context.JobApplications.Where(j => j.UserId == userId);
-
-            var summary = new DashboardSummaryDto
+            try
             {
-                TotalApplications = await query.CountAsync(),
-                AppliedCount = await query.CountAsync(j => j.Status == "Applied"),
-                InterviewCount = await query.CountAsync(j => j.Status == "Interview"),
-                OfferCount = await query.CountAsync(j => j.Status == "Offer"),
-                RejectedCount = await query.CountAsync(j => j.Status == "Rejected")
-            };
+                var total = await _context.JobApplications
+                    .CountAsync(j => j.UserId == userId);
 
-            _cache.Set(cacheKey, summary, TimeSpan.FromSeconds(30));
-            return summary;
+                return new DashboardSummaryDto
+                {
+                    TotalApplications = total
+                };
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"❌ Fel i GetSummaryAsync: {ex.Message}");
+                return new DashboardSummaryDto { TotalApplications = 0 };
+            }
         }
 
-        public async Task<IEnumerable<RecentJobApplicationDto>> GetRecentApplicationsAsync(int userId, int count = 5)
+        // 🔹 Hämtar de senaste ansökningarna
+        public async Task<IEnumerable<JobApplicationDto>> GetRecentApplicationsAsync(int userId, int count)
         {
-            string cacheKey = $"dashboard_recent_{userId}_{count}";
+            try
+            {
+                var applications = await _context.JobApplications
+                    .Where(j => j.UserId == userId)
+                    .OrderByDescending(j => j.AppliedAt)
+                    .Take(count)
+                    .Select(j => new JobApplicationDto
+                    {
+                        Id = j.Id,
+                        Position = j.Position,
+                        Company = j.Company,
+                        Status = j.Status,
+                        AppliedAt = j.AppliedAt,
+                        Notes = j.Notes,
+                        JobLink = j.JobLink,
+                        UserId = j.UserId
+                    })
+                    .ToListAsync();
 
-            if (_cache.TryGetValue(cacheKey, out IEnumerable<RecentJobApplicationDto> cachedRecent))
-                return cachedRecent;
-
-            var recent = await _context.JobApplications
-                .Where(j => j.UserId == userId)
-                .OrderByDescending(j => j.AppliedAt)
-                .Take(count)
-                .Select(j => new RecentJobApplicationDto
-                {
-                    Id = j.Id,
-                    Position = j.Position,
-                    Company = j.Company,
-                    Status = j.Status,
-                    AppliedAt = j.AppliedAt
-                })
-                .ToListAsync();
-
-            _cache.Set(cacheKey, recent, TimeSpan.FromSeconds(30));
-            return recent;
+                return applications ?? new List<JobApplicationDto>();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"❌ Fel i GetRecentApplicationsAsync: {ex.Message}");
+                return new List<JobApplicationDto>();
+            }
         }
 
-        public async Task<IEnumerable<StatusDistributionDto>> GetStatusDistributionAsync(int userId)
+        // 🔹 Fördelning av statusar (Offer / Pending / Rejected)
+        public async Task<StatusDistributionDto> GetStatusDistributionAsync(int userId)
         {
-            string cacheKey = $"dashboard_status_{userId}";
+            try
+            {
+                var all = await _context.JobApplications
+                    .Where(j => j.UserId == userId)
+                    .ToListAsync();
 
-            if (_cache.TryGetValue(cacheKey, out IEnumerable<StatusDistributionDto> cachedDist))
-                return cachedDist;
-
-            var query = _context.JobApplications.Where(j => j.UserId == userId);
-            var total = await query.CountAsync();
-
-            var distribution = await query
-                .GroupBy(j => j.Status)
-                .Select(g => new StatusDistributionDto
+                if (all == null || !all.Any())
                 {
-                    Status = g.Key,
-                    Count = g.Count(),
-                    Percentage = total == 0 ? 0 : Math.Round((double)g.Count() / total * 100, 2)
-                })
-                .ToListAsync();
+                    return new StatusDistributionDto
+                    {
+                        Accepted = 0,
+                        Pending = 0,
+                        Rejected = 0
+                    };
+                }
 
-            _cache.Set(cacheKey, distribution, TimeSpan.FromSeconds(30));
-            return distribution;
+                return new StatusDistributionDto
+                {
+                    // “Offer” räknas som accepterad
+                    Accepted = all.Count(a => a.Status != null && a.Status.Equals("Offer", StringComparison.OrdinalIgnoreCase)),
+
+                    // “Applied” + “Interview” räknas som pågående
+                    Pending = all.Count(a =>
+                        a.Status != null && (
+                            a.Status.Equals("Applied", StringComparison.OrdinalIgnoreCase) ||
+                            a.Status.Equals("Interview", StringComparison.OrdinalIgnoreCase)
+                        )
+                    ),
+
+                    // “Rejected” räknas som nekad
+                    Rejected = all.Count(a =>
+                        a.Status != null && a.Status.Equals("Rejected", StringComparison.OrdinalIgnoreCase)
+                    )
+                };
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"❌ Fel i GetStatusDistributionAsync: {ex.Message}");
+                return new StatusDistributionDto { Accepted = 0, Pending = 0, Rejected = 0 };
+            }
         }
     }
 }

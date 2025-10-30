@@ -28,7 +28,7 @@ namespace BasicCMR.API.Controllers
         public async Task<IActionResult> Register([FromBody] RegisterUserDto dto)
         {
             if (await _context.Users.AnyAsync(u => u.Email == dto.Email))
-                return BadRequest("Email already exists");
+                return BadRequest("E-postadressen används redan.");
 
             var user = new User
             {
@@ -41,7 +41,7 @@ namespace BasicCMR.API.Controllers
 
             return Ok(new
             {
-                message = "User registered successfully",
+                message = "Användare registrerad framgångsrikt ✅",
                 user.Email
             });
         }
@@ -52,29 +52,40 @@ namespace BasicCMR.API.Controllers
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == dto.Email);
             if (user == null || !BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash))
-                return Unauthorized("Invalid credentials");
+                return Unauthorized("Fel e-post eller lösenord ❌");
 
             var token = GenerateJwtToken(user);
             return Ok(new { token });
         }
 
-        // 🔹 Generate JWT Token
+        // 🔹 Generate JWT Token (null-säkert)
         private string GenerateJwtToken(User user)
         {
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+            // ✅ Null-checks med tydliga felmeddelanden
+            var jwtKey = _configuration["Jwt:Key"]
+                ?? throw new InvalidOperationException("❌ JWT Key saknas i appsettings.json");
+
+            var jwtIssuer = _configuration["Jwt:Issuer"]
+                ?? throw new InvalidOperationException("❌ JWT Issuer saknas i appsettings.json");
+
+            var jwtAudience = _configuration["Jwt:Audience"]
+                ?? throw new InvalidOperationException("❌ JWT Audience saknas i appsettings.json");
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var claims = new[]
             {
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Email, user.Email)
+                new Claim("UserId", user.Id.ToString()),
+                new Claim(JwtRegisteredClaimNames.Sub, user.Email),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 
             var token = new JwtSecurityToken(
-                issuer: _configuration["Jwt:Issuer"],
-                audience: _configuration["Jwt:Audience"],
+                issuer: jwtIssuer,
+                audience: jwtAudience,
                 claims: claims,
-                expires: DateTime.Now.AddHours(3),
+                expires: DateTime.UtcNow.AddHours(12),
                 signingCredentials: creds
             );
 

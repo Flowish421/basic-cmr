@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ahmed\\Desktop\\basic CMR\\BasicCMR.API\\BasicCMR.API.csproj": {}
+    "C:\\Users\\ahmed\\Desktop\\GitRepo\\basic-cmr\\BasicCMR.API\\BasicCMR.API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ahmed\\Desktop\\basic CMR\\BasicCMR.API\\BasicCMR.API.csproj": {
+    "C:\\Users\\ahmed\\Desktop\\GitRepo\\basic-cmr\\BasicCMR.API\\BasicCMR.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ahmed\\Desktop\\basic CMR\\BasicCMR.API\\BasicCMR.API.csproj",
+        "projectUniqueName": "C:\\Users\\ahmed\\Desktop\\GitRepo\\basic-cmr\\BasicCMR.API\\BasicCMR.API.csproj",
         "projectName": "BasicCMR.API",
-        "projectPath": "C:\\Users\\ahmed\\Desktop\\basic CMR\\BasicCMR.API\\BasicCMR.API.csproj",
+        "projectPath": "C:\\Users\\ahmed\\Desktop\\GitRepo\\basic-cmr\\BasicCMR.API\\BasicCMR.API.csproj",
         "packagesPath": "C:\\Users\\ahmed\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ahmed\\Desktop\\basic CMR\\BasicCMR.API\\obj\\",
+        "outputPath": "C:\\Users\\ahmed\\Desktop\\GitRepo\\basic-cmr\\BasicCMR.API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -26,17 +26,18 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "C:\\Users\\ahmed\\Desktop\\basic CMR\\BasicCMR.Application\\BasicCMR.Application.csproj": {
-                "projectPath": "C:\\Users\\ahmed\\Desktop\\basic CMR\\BasicCMR.Application\\BasicCMR.Application.csproj"
+              "C:\\Users\\ahmed\\Desktop\\GitRepo\\basic-cmr\\BasicCMR.Application\\BasicCMR.Application.csproj": {
+                "projectPath": "C:\\Users\\ahmed\\Desktop\\GitRepo\\basic-cmr\\BasicCMR.Application\\BasicCMR.Application.csproj"
               },
-              "C:\\Users\\ahmed\\Desktop\\basic CMR\\BasicCMR.Infrastructure\\BasicCMR.Infrastructure.csproj": {
-                "projectPath": "C:\\Users\\ahmed\\Desktop\\basic CMR\\BasicCMR.Infrastructure\\BasicCMR.Infrastructure.csproj"
+              "C:\\Users\\ahmed\\Desktop\\GitRepo\\basic-cmr\\BasicCMR.Infrastructure\\BasicCMR.Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\ahmed\\Desktop\\GitRepo\\basic-cmr\\BasicCMR.Infrastructure\\BasicCMR.Infrastructure.csproj"
               }
             }
           }
@@ -69,6 +70,10 @@
               "target": "Package",
               "version": "[13.0.0, )"
             },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[9.0.10, )"
+            },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[9.0.9, )"
@@ -79,9 +84,29 @@
               "target": "Package",
               "version": "[9.0.10, )"
             },
+            "Microsoft.Extensions.Configuration": {
+              "target": "Package",
+              "version": "[9.0.10, )"
+            },
+            "Microsoft.Extensions.Configuration.Abstractions": {
+              "target": "Package",
+              "version": "[9.0.10, )"
+            },
+            "Microsoft.Extensions.Configuration.Binder": {
+              "target": "Package",
+              "version": "[9.0.10, )"
+            },
+            "Microsoft.IdentityModel.Tokens": {
+              "target": "Package",
+              "version": "[8.14.0, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
-              "version": "[9.0.6, )"
+              "version": "[6.6.2, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[8.14.0, )"
             }
           },
           "imports": [
@@ -107,14 +132,14 @@
         }
       }
     },
-    "C:\\Users\\ahmed\\Desktop\\basic CMR\\BasicCMR.Application\\BasicCMR.Application.csproj": {
+    "C:\\Users\\ahmed\\Desktop\\GitRepo\\basic-cmr\\BasicCMR.Application\\BasicCMR.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ahmed\\Desktop\\basic CMR\\BasicCMR.Application\\BasicCMR.Application.csproj",
+        "projectUniqueName": "C:\\Users\\ahmed\\Desktop\\GitRepo\\basic-cmr\\BasicCMR.Application\\BasicCMR.Application.csproj",
         "projectName": "BasicCMR.Application",
-        "projectPath": "C:\\Users\\ahmed\\Desktop\\basic CMR\\BasicCMR.Application\\BasicCMR.Application.csproj",
+        "projectPath": "C:\\Users\\ahmed\\Desktop\\GitRepo\\basic-cmr\\BasicCMR.Application\\BasicCMR.Application.csproj",
         "packagesPath": "C:\\Users\\ahmed\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ahmed\\Desktop\\basic CMR\\BasicCMR.Application\\obj\\",
+        "outputPath": "C:\\Users\\ahmed\\Desktop\\GitRepo\\basic-cmr\\BasicCMR.Application\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -129,17 +154,18 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "C:\\Users\\ahmed\\Desktop\\basic CMR\\BasicCMR.Domain\\BasicCMR.Domain.csproj": {
-                "projectPath": "C:\\Users\\ahmed\\Desktop\\basic CMR\\BasicCMR.Domain\\BasicCMR.Domain.csproj"
+              "C:\\Users\\ahmed\\Desktop\\GitRepo\\basic-cmr\\BasicCMR.Domain\\BasicCMR.Domain.csproj": {
+                "projectPath": "C:\\Users\\ahmed\\Desktop\\GitRepo\\basic-cmr\\BasicCMR.Domain\\BasicCMR.Domain.csproj"
               },
-              "C:\\Users\\ahmed\\Desktop\\basic CMR\\BasicCMR.Infrastructure\\BasicCMR.Infrastructure.csproj": {
-                "projectPath": "C:\\Users\\ahmed\\Desktop\\basic CMR\\BasicCMR.Infrastructure\\BasicCMR.Infrastructure.csproj"
+              "C:\\Users\\ahmed\\Desktop\\GitRepo\\basic-cmr\\BasicCMR.Infrastructure\\BasicCMR.Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\ahmed\\Desktop\\GitRepo\\basic-cmr\\BasicCMR.Infrastructure\\BasicCMR.Infrastructure.csproj"
               }
             }
           }
@@ -174,7 +200,7 @@
             },
             "Microsoft.Extensions.Caching.Memory": {
               "target": "Package",
-              "version": "[9.0.10, )"
+              "version": "[9.0.0, )"
             },
             "Microsoft.Extensions.Configuration": {
               "target": "Package",
@@ -209,14 +235,14 @@
         }
       }
     },
-    "C:\\Users\\ahmed\\Desktop\\basic CMR\\BasicCMR.Domain\\BasicCMR.Domain.csproj": {
+    "C:\\Users\\ahmed\\Desktop\\GitRepo\\basic-cmr\\BasicCMR.Domain\\BasicCMR.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ahmed\\Desktop\\basic CMR\\BasicCMR.Domain\\BasicCMR.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\ahmed\\Desktop\\GitRepo\\basic-cmr\\BasicCMR.Domain\\BasicCMR.Domain.csproj",
         "projectName": "BasicCMR.Domain",
-        "projectPath": "C:\\Users\\ahmed\\Desktop\\basic CMR\\BasicCMR.Domain\\BasicCMR.Domain.csproj",
+        "projectPath": "C:\\Users\\ahmed\\Desktop\\GitRepo\\basic-cmr\\BasicCMR.Domain\\BasicCMR.Domain.csproj",
         "packagesPath": "C:\\Users\\ahmed\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ahmed\\Desktop\\basic CMR\\BasicCMR.Domain\\obj\\",
+        "outputPath": "C:\\Users\\ahmed\\Desktop\\GitRepo\\basic-cmr\\BasicCMR.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -231,6 +257,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -274,14 +301,14 @@
         }
       }
     },
-    "C:\\Users\\ahmed\\Desktop\\basic CMR\\BasicCMR.Infrastructure\\BasicCMR.Infrastructure.csproj": {
+    "C:\\Users\\ahmed\\Desktop\\GitRepo\\basic-cmr\\BasicCMR.Infrastructure\\BasicCMR.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ahmed\\Desktop\\basic CMR\\BasicCMR.Infrastructure\\BasicCMR.Infrastructure.csproj",
+        "projectUniqueName": "C:\\Users\\ahmed\\Desktop\\GitRepo\\basic-cmr\\BasicCMR.Infrastructure\\BasicCMR.Infrastructure.csproj",
         "projectName": "BasicCMR.Infrastructure",
-        "projectPath": "C:\\Users\\ahmed\\Desktop\\basic CMR\\BasicCMR.Infrastructure\\BasicCMR.Infrastructure.csproj",
+        "projectPath": "C:\\Users\\ahmed\\Desktop\\GitRepo\\basic-cmr\\BasicCMR.Infrastructure\\BasicCMR.Infrastructure.csproj",
         "packagesPath": "C:\\Users\\ahmed\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ahmed\\Desktop\\basic CMR\\BasicCMR.Infrastructure\\obj\\",
+        "outputPath": "C:\\Users\\ahmed\\Desktop\\GitRepo\\basic-cmr\\BasicCMR.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -296,14 +323,15 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "C:\\Users\\ahmed\\Desktop\\basic CMR\\BasicCMR.Domain\\BasicCMR.Domain.csproj": {
-                "projectPath": "C:\\Users\\ahmed\\Desktop\\basic CMR\\BasicCMR.Domain\\BasicCMR.Domain.csproj"
+              "C:\\Users\\ahmed\\Desktop\\GitRepo\\basic-cmr\\BasicCMR.Domain\\BasicCMR.Domain.csproj": {
+                "projectPath": "C:\\Users\\ahmed\\Desktop\\GitRepo\\basic-cmr\\BasicCMR.Domain\\BasicCMR.Domain.csproj"
               }
             }
           }
@@ -346,17 +374,17 @@
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[9.0.10, )"
+              "version": "[9.0.0, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[9.0.10, )"
+              "version": "[9.0.0, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[9.0.10, )"
+              "version": "[9.0.0, )"
             },
             "Microsoft.IdentityModel.Tokens": {
               "target": "Package",
