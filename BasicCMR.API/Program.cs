@@ -8,55 +8,36 @@ using BasicCMR.Application;
 using BasicCMR.Application.Interfaces;
 using BasicCMR.Application.Services;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
-// =====================================================
-// Databas — EF Core
-// =====================================================
+// Add DbContext
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// =====================================================
-// Caching (för DashboardService)
-// =====================================================
+// Caching
 builder.Services.AddMemoryCache();
 
-// =====================================================
-//  Controllers
-// =====================================================
+// Controllers
 builder.Services.AddControllers();
 
-// =====================================================
-// Application services + Dependency Injection
-// =====================================================
+// Dependency Injection
 builder.Services.AddApplication();
-
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IJobApplicationService, JobApplicationService>();
 builder.Services.AddScoped<IDashboardService, DashboardService>();
 
-// =====================================================
-// CORS-policy (React-klienten)
-// =====================================================
+// Allow all CORS for development
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
-    {
-        policy.AllowAnyOrigin()
-              .AllowAnyMethod()
-              .AllowAnyHeader();
-    });
+        policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 });
 
-// =====================================================
-// JWT Authentication Setup (warning-free)
-// =====================================================
-var jwtKey = builder.Configuration["Jwt:Key"]
-    ?? throw new InvalidOperationException("❌ JWT Key saknas i appsettings.json");
-var jwtIssuer = builder.Configuration["Jwt:Issuer"]
-    ?? throw new InvalidOperationException("❌ JWT Issuer saknas i appsettings.json");
-var jwtAudience = builder.Configuration["Jwt:Audience"]
-    ?? throw new InvalidOperationException("❌ JWT Audience saknas i appsettings.json");
+// JWT Auth Setup
+var jwtKey = builder.Configuration["Jwt:Key"] ?? "supersecretkey12345";
+var jwtIssuer = builder.Configuration["Jwt:Issuer"] ?? "http://localhost:5203";
+var jwtAudience = builder.Configuration["Jwt:Audience"] ?? "http://localhost:5203";
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -73,20 +54,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-// =====================================================
-// Swagger (med JWT-stöd)
-// =====================================================
+// Swagger Setup
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
-    options.SwaggerDoc("v1", new OpenApiInfo
-    {
-        Title = "BasicCMR API",
-        Version = "v1",
-        Description = "Ett enkelt CRM-system med JWT-auth, job applications och användarhantering."
-    });
-
-    // JWT-integration i Swagger
+    options.SwaggerDoc("v1", new OpenApiInfo { Title = "BasicCMR API", Version = "v1" });
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Name = "Authorization",
@@ -94,9 +66,8 @@ builder.Services.AddSwaggerGen(options =>
         Scheme = "bearer",
         BearerFormat = "JWT",
         In = ParameterLocation.Header,
-        Description = "Skriv **Bearer** följt av ett mellanslag och sedan din token.\n\nExempel: `Bearer eyJhbGciOiJIUzI1NiIs...`"
+        Description = "Skriv 'Bearer {token}'"
     });
-
     options.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
         {
@@ -113,14 +84,9 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
-// =====================================================
-//  Bygger och konfigurera appen
-// =====================================================
 var app = builder.Build();
 
-// =====================================================
-// Middleware-pipeline
-// =====================================================
+//  Pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

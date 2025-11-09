@@ -1,13 +1,14 @@
 // src/App.jsx
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
-import Register from "./pages/Register";
-
 
 // Sidor
+import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import CreateJobApplication from "./pages/CreateJobApplication";
+import EditJobApplication from "./pages/EditJobApplication";
+import JobApplicationsPage from "./pages/JobApplicationsPage"; 
 
 // Skyddad route
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -22,16 +23,14 @@ export default function App() {
       <Router>
         <Routes>
 
-          {/* Default redirect till /Registera */}
+          {/* Publika routes */}
           <Route path="/register" element={<Register />} />
-
-          {/* Default redirect till /login */}
-          <Route path="/" element={<Navigate to="/login" replace />} />
-
-          {/*  Publika routes */}
           <Route path="/login" element={<Login />} />
 
-          {/* 🧭 Skyddade routes */}
+          {/* Default redirect till login */}
+          <Route path="/" element={<Navigate to="/login" replace />} />
+
+          {/* Skyddade routes */}
           <Route
             path="/dashboard"
             element={
@@ -50,8 +49,29 @@ export default function App() {
             }
           />
 
-          {/*  404 fallback */}
-          <Route path="*" element={<h1 className="text-center mt-20">404 - Sidan finns inte</h1>} />
+          <Route
+            path="/edit/:id"
+            element={
+              <ProtectedRoute>
+                <EditJobApplication />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/applications"
+            element={
+              <ProtectedRoute>
+                <JobApplicationsPage />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* 404 fallback */}
+          <Route
+            path="*"
+            element={<h1 className="text-center mt-20 text-2xl font-bold">404 - Sidan finns inte</h1>}
+          />
         </Routes>
 
         {/* Toastify-container (global notifieringsyta) */}

@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 
+
 export default function Register() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({

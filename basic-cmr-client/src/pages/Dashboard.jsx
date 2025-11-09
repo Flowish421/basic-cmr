@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { getDashboardData } from "../services/DashboardService";
 import { toast } from "react-toastify";
+import { deleteJobApplication } from "../services/JobApplicationService";
+
 
 
 export default function Dashboard() {
@@ -89,26 +91,51 @@ export default function Dashboard() {
               <th className="p-3">Datum</th>
             </tr>
           </thead>
-          <tbody>
-            {data.recentApplications.length > 0 ? (
-              data.recentApplications.map((app) => (
-                <tr key={app.id} className="border-b hover:bg-gray-50">
-                  <td className="p-3">{app.company}</td>
-                  <td className="p-3">{app.position}</td>
-                  <td className="p-3">{app.status}</td>
-                  <td className="p-3">
-                    {new Date(app.appliedAt).toLocaleDateString("sv-SE")}
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="4" className="text-center text-gray-500 py-4">
-                  Inga ansökningar än.
-                </td>
-              </tr>
-            )}
-          </tbody>
+         <tbody>
+  {data.recentApplications.length > 0 ? (
+    data.recentApplications.map((app) => (
+      <tr key={app.id} className="border-b hover:bg-gray-50">
+        <td className="p-3">{app.company}</td>
+        <td className="p-3">{app.position}</td>
+        <td className="p-3">{app.status}</td>
+        <td className="p-3">
+          {new Date(app.appliedAt).toLocaleDateString("sv-SE")}
+        </td>
+        <td className="p-3 flex gap-2">
+          <button
+            onClick={() => navigate(`/edit/${app.id}`)}
+            className="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded"
+          >
+            ✏️ Redigera
+          </button>
+          <button
+            onClick={async () => {
+              if (window.confirm("Är du säker på att du vill ta bort denna ansökan?")) {
+                try {
+                  await deleteJobApplication(app.id, token);
+                  toast.success("Ansökan borttagen ");
+                  window.location.reload();
+                } catch (err) {
+                  toast.error("Fel vid borttagning ");
+                }
+              }
+            }}
+            className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded"
+          >
+            🗑 Ta bort
+          </button>
+        </td>
+      </tr>
+    ))
+  ) : (
+    <tr>
+      <td colSpan="5" className="text-center text-gray-500 py-4">
+        Inga ansökningar än.
+      </td>
+    </tr>
+  )}
+</tbody>
+
         </table>
       </div>
     </div>

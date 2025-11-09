@@ -6,12 +6,11 @@ using BasicCMR.Domain.Entities;
 using BasicCMR.Application.DTOs.JobApplications;
 using System.Security.Claims;
 
-
 namespace BasicCMR.API.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
-    [Authorize] // kräver inloggning (JWT)
+    [Route("api/[controller]")]
+    [Authorize]
     public class JobApplicationsController : ControllerBase
     {
         private readonly AppDbContext _context;
@@ -21,7 +20,7 @@ namespace BasicCMR.API.Controllers
             _context = context;
         }
 
-        // GET: api/JobApplications 
+        // 🧩 GET: api/jobapplications
         [HttpGet]
         public async Task<ActionResult<IEnumerable<JobApplicationDto>>> GetJobApplications()
         {
@@ -29,6 +28,7 @@ namespace BasicCMR.API.Controllers
 
             var applications = await _context.JobApplications
                 .Where(a => a.UserId == userId)
+                .OrderByDescending(a => a.AppliedAt)
                 .Select(a => new JobApplicationDto
                 {
                     Id = a.Id,
@@ -45,13 +45,13 @@ namespace BasicCMR.API.Controllers
             return Ok(applications);
         }
 
-        // GET: api/JobApplications/{id} Med ID
+        // 🧩 GET: api/jobapplications/{id}
         [HttpGet("{id}")]
         public async Task<ActionResult<JobApplicationDto>> GetJobApplication(int id)
         {
             int userId = GetUserIdFromToken();
 
-            var application = await _context.JobApplications
+            var app = await _context.JobApplications
                 .Where(a => a.Id == id && a.UserId == userId)
                 .Select(a => new JobApplicationDto
                 {
@@ -66,13 +66,13 @@ namespace BasicCMR.API.Controllers
                 })
                 .FirstOrDefaultAsync();
 
-            if (application == null)
-                return NotFound();
+            if (app == null)
+                return NotFound("Job application not found.");
 
-            return Ok(application);
+            return Ok(app);
         }
 
-        // POST: api/JobApplications
+        // 🟢 POST: api/jobapplications
         [HttpPost]
         public async Task<ActionResult<JobApplicationDto>> CreateJobApplication(CreateJobApplicationDto dto)
         {
@@ -106,9 +106,9 @@ namespace BasicCMR.API.Controllers
             return CreatedAtAction(nameof(GetJobApplication), new { id = jobApp.Id }, result);
         }
 
-        // 🟡 PUT: api/JobApplications/{id} Med id
+        // 🟡 PUT: api/jobapplications/{id}
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateJobApplication(int id, UpdateJobApplicationDto dto)
+        public async Task<IActionResult> UpdateJobApplication(int id, [FromBody] UpdateJobApplicationDto dto)
         {
             int userId = GetUserIdFromToken();
 
@@ -116,21 +116,20 @@ namespace BasicCMR.API.Controllers
                 .FirstOrDefaultAsync(a => a.Id == id && a.UserId == userId);
 
             if (jobApp == null)
-                return NotFound();
+                return NotFound("Job application not found.");
 
-            // 🔧 Uppdatera endast de fält som skickats in
-            if (!string.IsNullOrEmpty(dto.Position)) jobApp.Position = dto.Position;
-            if (!string.IsNullOrEmpty(dto.Company)) jobApp.Company = dto.Company;
-            if (!string.IsNullOrEmpty(dto.Status)) jobApp.Status = dto.Status;
-            if (!string.IsNullOrEmpty(dto.Notes)) jobApp.Notes = dto.Notes;
-            if (!string.IsNullOrEmpty(dto.JobLink)) jobApp.JobLink = dto.JobLink;
+            jobApp.Position = dto.Position;
+            jobApp.Company = dto.Company;
+            jobApp.Status = dto.Status;
+            jobApp.Notes = dto.Notes;
+            jobApp.JobLink = dto.JobLink;
 
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok(new { message = "Job application updated successfully." });
         }
 
-        // DELETE: api/JobApplications/{id} Med ID
+        // 🗑 DELETE: api/jobapplications/{id}
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteJobApplication(int id)
         {
@@ -140,26 +139,30 @@ namespace BasicCMR.API.Controllers
                 .FirstOrDefaultAsync(a => a.Id == id && a.UserId == userId);
 
             if (jobApp == null)
-                return NotFound();
+                return NotFound("Job application not found.");
 
             _context.JobApplications.Remove(jobApp);
             await _context.SaveChangesAsync();
 
-            return NoContent();
-            Console.WriteLine($"Trying to delete JobApplication ID={id} for User={userId}");
-
+            return Ok(new { message = "Job application deleted successfully." });
         }
 
-        // Det är en hjälpmetod för att hämta UserId från JWT-tokenen
+        // 🧠 Hjälpmetod – Hämta UserId från JWT
         private int GetUserIdFromToken()
         {
-            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
-            if (userIdClaim == null)
+            var userIdClaim =
+                User.FindFirst("UserId")?.Value ??
+                User.FindFirst(ClaimTypes.NameIdentifier)?.Value ??
+                User.FindFirst(ClaimTypes.Email)?.Value;
+
+            if (string.IsNullOrEmpty(userIdClaim))
                 throw new UnauthorizedAccessException("No user ID found in token.");
 
-            return int.Parse(userIdClaim.Value);
-        }
-    } 
-    
+            // ⚙️ Om claimen råkar vara ett e-postadress (felaktigt token)
+            if (userIdClaim.Contains("@"))
+                throw new UnauthorizedAccessException("Invalid token: UserId claim is email, not numeric ID.");
 
+            return int.Parse(userIdClaim);
+        }
+    }
 }
