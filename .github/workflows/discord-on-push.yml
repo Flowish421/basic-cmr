@@ -23,5 +23,5 @@ jobs:
                       --arg branch "$BRANCH" \
                       --arg msg "$COMMIT_MSG" \
                       --arg url "$COMMIT_URL" \
-                      '{content: "✅ *\($repo)*\n👤 \($actor)\n🌿 \($branch)\n📝 \($msg)\n🔗 \($url)"}')
+                      '{content: " *\($repo)*\n👤 \($actor)\n🌿 \($branch)\n📝 \($msg)\n🔗 \($url)"}')
           curl -sS -H "Content-Type: application/json" -d "$JSON" "$WEBHOOK_URL"
