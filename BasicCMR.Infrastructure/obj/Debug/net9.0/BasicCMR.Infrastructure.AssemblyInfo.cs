@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BasicCMR.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+26f9e68901e3eadefb4ad641f5f153c3aaafff9a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+074b57d2c7a09601f96fd36827b0ab69330daa58")]
 [assembly: System.Reflection.AssemblyProductAttribute("BasicCMR.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BasicCMR.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
